@@ -1,7 +1,19 @@
-all: boot.bin
+SRC_DIR = src
+FILES = src/boot.asm
 
-boot.bin: src/*
-	nasm src/boot.asm -f bin -o boot.bin -i src/
+all: boot.bin
+.PHONY: all
+
+boot.bin: $(FILES)
+	nasm $^ -f bin -o $@ -i src/
+
+%.asm:
+	echo $@
 
 run: boot.bin
-	qemu-system-x86_64 boot.bin 
+	qemu-system-x86_64 -fda boot.bin
+
+.PHONY: run
+
+clean:
+	rm boot.bin
