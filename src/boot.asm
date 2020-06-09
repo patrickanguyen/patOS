@@ -1,12 +1,11 @@
 [org 0x7c00]
-
     mov [BOOT_DRIVE], dl ; Store boot drive
 
     mov bp, 0x8000 ; Set stack out of the way
     mov sp, bp
 
     mov bx, 0x9000 ; Load 5 sectors from boot disk
-    mov dh, 5
+    mov dh, 2
     mov dl, [BOOT_DRIVE] 
     call disk_load
 

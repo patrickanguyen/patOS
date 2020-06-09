@@ -11,7 +11,7 @@ boot.bin: $(FILES)
 	echo $@
 
 run: boot.bin
-	qemu-system-x86_64 -fda boot.bin
+	qemu-system-x86_64 boot.bin
 
 .PHONY: run
 
