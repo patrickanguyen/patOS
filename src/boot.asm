@@ -1,34 +1,34 @@
 [org 0x7c00]
-    mov [BOOT_DRIVE], dl ; Store boot drive
 
-    mov bp, 0x8000 ; Set stack out of the way
+    mov bp, 0x9000 ; Set stack
     mov sp, bp
 
-    mov bx, 0x9000 ; Load 2 sectors from boot disk
-    mov dh, 2
-    mov dl, [BOOT_DRIVE] 
-    call disk_load
+    mov bx, MSG_REAL_MODE
+    call print_string
 
-    mov dx, [0x9000] ; Print first loaded word, which should 0xdada
-    call print_hex
-
-    mov dx, [0x9000 + 512] ; Print first word from second loaded sector
-    call print_hex ; should be 0xface
+    call switch_to_pm
 
     jmp $
 
 %include "print_string.asm"
-%include "print_hex.asm"
-%include "disk_load.asm"
+%include "gdt.asm"
+%include "print_pm.asm"
+%include "switch_to_pm.asm"
 
-BOOT_DRIVE:
-    db 0
+[bits 32]
+; Finished switching to protected mode
+BEGIN_PM:
+    mov ebx, MSG_PROT_MODE
+    call print_string_pm
 
-; Bootsector padding
+    jmp $
+
+
+MSG_REAL_MODE:
+    db "Started in 16-bit real mode", 0
+
+MSG_PROT_MODE:
+    db "Sucessfully landed in 32-bit protected Mode", 0
+
 times 510-($-$$) db 0
 dw 0xaa55
-
-; Add sectors to our code to show that we actually
-; loaded two sectors from disk we booted from
-times 256 dw 0xdada
-times 256 dw 0xface

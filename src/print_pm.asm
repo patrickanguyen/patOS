@@ -11,7 +11,7 @@ print_string_pm_loop:
     mov ah, WHITE_ON_BLACK
 
     cmp al, 0 ; jmp to done if null character
-    je done
+    je print_string_pm_done
 
     ; Store char and attribute and current char cell
     mov [edx], ax 
