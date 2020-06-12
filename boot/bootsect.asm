@@ -55,7 +55,7 @@ MSG_PROT_MODE:
     db "Sucessfully landed in 32-bit protected Mode", 0
 
 MSG_LOAD_KERNEL:
-    db "Loading kernel into memory", 0
+    db "Loading kernel into memory", 0xa, 0xd, 0
 
 ; Bootsector padding
 times 510-($-$$) db 0
