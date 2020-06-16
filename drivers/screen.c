@@ -2,16 +2,15 @@
 #include "../cpu/ports.h"
 #include "../kernel/util.h"
 
-void print_char(char character, int col, int row, unsigned char attribute_byte);
-void clear_screen(void);
-int get_screen_offset(int row,  int col);
-int get_cursor_offset(void);
-void set_cursor_offset(int offset);
-int get_offset_row(int offset);
-int get_offset_col(int offset);
-int handle_scrolling(int cursor_offset);
+static void print_char(char character, int col, int row, unsigned char attribute_byte);
+static int get_screen_offset(int row,  int col);
+static int get_cursor_offset(void);
+static void set_cursor_offset(int offset);
+static int get_offset_row(int offset);
+static int get_offset_col(int offset);
+static int handle_scrolling(int cursor_offset);
 
-void kprint_at(char *message, int row, int col, unsigned char attribute_byte)
+void kprint_at(const char *message, int row, int col, unsigned char attribute_byte)
 {
     int offset;
     int adjusted_row, adjusted_col;
@@ -31,18 +30,18 @@ void kprint_at(char *message, int row, int col, unsigned char attribute_byte)
         adjusted_col = get_offset_col(offset);
     }
 
-    char* letter = message;
-    while (*letter != '\0') {
-        print_char(*letter, adjusted_row, adjusted_col, attribute_byte);
+    int i = 0;
+    while (message[i] != '\0') {
+        print_char(message[i], adjusted_row, adjusted_col, attribute_byte);
 
         offset = get_cursor_offset();
         adjusted_row = get_offset_row(offset);
         adjusted_col = get_offset_col(offset);
-        ++letter;
+        ++i;
     }
 }
 
-void kprint(char *message, unsigned char attribute_byte)
+void kprint(const char *message, unsigned char attribute_byte)
 {
     kprint_at(message, -1, -1, attribute_byte);
 }

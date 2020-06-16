@@ -17,8 +17,8 @@ void idt_set_gate(int n, uint32_t handler)
 
 void set_idt(void)
 {
-    idt_ptr.limit = sizeof(idt_entry_t) * NUM_IDT_ENTRIES -1;
     idt_ptr.base = (uint32_t) &idt_entries;
-
+    idt_ptr.limit = sizeof(idt_entry_t) * NUM_IDT_ENTRIES -1;
+    
     __asm__ __volatile__("lidt (%0)" : : "r" (&idt_ptr));
 }

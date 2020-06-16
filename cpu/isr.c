@@ -76,49 +76,52 @@ void isr_install()
     set_idt();
 }
 
-char *exception_messages[] = {
-    "Division By Zero",
-    "Debug",
-    "Non Maskable Interrupt",
-    "Breakpoint",
-    "Into Detected Overflow",
-    "Out of Bounds",
-    "Invalid Opcode",
-    "No Coprocessor",
-    "Double Fault",
-    "Coprocessor Segment Overrun",
-    "Bad TSS",
-    "Segment Not Present",
-    "Stack Fault",
-    "General Protection Fault",
-    "Page Fault",
-    "Unknown Interrupt",
-    "Coprocessor Fault",
-    "Alignment Check",
-    "Machine Check",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved",
-    "Reserved"
-};
-
 void isr_handler(registers_t *r)
 {
+    const char *exception_messages[] = {
+        "Division By Zero",
+        "Debug",
+        "Non Maskable Interrupt",
+        "Breakpoint",
+        "Into Detected Overflow",
+        "Out of Bounds",
+        "Invalid Opcode",
+        "No Coprocessor",
+
+        "Double Fault",
+        "Coprocessor Segment Overrun",
+        "Bad TSS",
+        "Segment Not Present",
+        "Stack Fault",
+        "General Protection Fault",
+        "Page Fault",
+        "Unknown Interrupt",
+
+        "Coprocessor Fault",
+        "Alignment Check",
+        "Machine Check",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved",
+        "Reserved"
+    };
+
     kprint("Received interrupt: ", VGA_COLOR(BLACK, WHITE));
     char num[4];
     k_itoa(r->int_no, num);
     kprint(num, VGA_COLOR(BLACK, WHITE));
     kprint("\n", VGA_COLOR(BLACK, WHITE));
-    kprint(exception_messages[r->int_no], VGA_COLOR(BLACK, WHITE));
+    kprint(exception_messages[r->int_no], VGA_COLOR(BLACK, WHITE));;
     kprint("\n", VGA_COLOR(BLACK, WHITE));
 }
 
@@ -131,7 +134,8 @@ void irq_handler(registers_t *r)
 {
     /* After every interrupt we need to send an EOI to the PICs
      * or they will not send another interrupt again */
-    if (r->int_no >= 40) {
+    if (r->int_no >= 40) 
+    {
         port_byte_out(0xA0, 0x20); /* slave */
     }
     port_byte_out(0x20, 0x20); /* master */

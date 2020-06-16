@@ -11,12 +11,13 @@ void k_memcpy(char *src, char *dest, int num_bytes)
     }
 }
 
-void k_itoa(int n, char str[])
+void k_itoa(const int n, char str[])
 {
+    int temp_num = n;
     int is_negative = n < 0;
 
     if (is_negative) {
-        n *= -1;
+        temp_num *= -1;
     }
 
     if (n == 0) {
@@ -24,8 +25,7 @@ void k_itoa(int n, char str[])
         str[1] = '\0';
         return;
     }
-
-    int temp_num = n;
+    
     int i = 0;
 
     while (temp_num != 0) {
