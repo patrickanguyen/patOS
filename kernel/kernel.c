@@ -1,11 +1,14 @@
 #include "../drivers/screen.h"
-#include "util.h"
 #include "../cpu/isr.h"
+#include "../cpu/timer.h"
+#include "../drivers/keyboard.h"
+#include <stdint.h>
 
 void kernel_main() 
 {
-    clear_screen();
     isr_install();
+    irq_install();
     
-    kprint("Hello World!\n", 0);
+    clear_screen();
+    
 }
