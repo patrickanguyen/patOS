@@ -11,8 +11,8 @@ LIGHT_BLUE, LIGHT_GREEN, LIGHT_CYAN, LIGHT_RED, LIGHT_MAGNETA, LIGHT_BROWN, WHIT
 #define REG_SCREEN_CTRL 0x3D4
 #define REG_SCREEN_DATA 0x3D5
 
-void kprint_at(char *message, int row, int col, char attribute_byte);
-void kprint(char *message, char attribute_byte);
+void kprint_at(char *message, int row, int col, unsigned char attribute_byte);
+void kprint(char *message, unsigned char attribute_byte);
 void clear_screen(void);
 
 #endif

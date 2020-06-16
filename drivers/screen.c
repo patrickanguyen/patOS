@@ -2,8 +2,8 @@
 #include "ports.h"
 #include "../kernel/util.h"
 
-void print_char(char character, int col, int row, char attribute_byte);
-void clear_screen();
+void print_char(char character, int col, int row, unsigned char attribute_byte);
+void clear_screen(void);
 int get_screen_offset(int row,  int col);
 int get_cursor_offset(void);
 void set_cursor_offset(int offset);
@@ -11,7 +11,7 @@ int get_offset_row(int offset);
 int get_offset_col(int offset);
 int handle_scrolling(int cursor_offset);
 
-void kprint_at(char *message, int row, int col, char attribute_byte)
+void kprint_at(char *message, int row, int col, unsigned char attribute_byte)
 {
     int offset;
     int adjusted_row, adjusted_col;
@@ -42,25 +42,25 @@ void kprint_at(char *message, int row, int col, char attribute_byte)
     }
 }
 
-void kprint(char *message, char attribute_byte)
+void kprint(char *message, unsigned char attribute_byte)
 {
     kprint_at(message, -1, -1, attribute_byte);
 }
 
 void clear_screen(void)
 {
-    int screen_size = MAX_COLS * MAX_ROWS;
-    char *video_mem = (char*)VIDEO_ADDRESS;
+    unsigned int screen_size = MAX_COLS * MAX_ROWS;
+    unsigned char *video_mem = (unsigned char*)VIDEO_ADDRESS;
 
-    int i;
+    unsigned int i;
     for (i = 0; i < screen_size; ++i) {
         video_mem[i * 2] = ' ';
-        video_mem[2*i + 1] = VGA_COLOR(BLUE, WHITE);
+        video_mem[2*i + 1] = VGA_COLOR(BLACK, WHITE);
     }
     set_cursor_offset(get_screen_offset(0,0));
 }
 
-void print_char(char character, int row, int col, char attribute_byte)
+void print_char(char character, int row, int col, unsigned char attribute_byte)
 {
     unsigned char *video_mem = (unsigned char*) VIDEO_ADDRESS;
 
@@ -101,7 +101,7 @@ int handle_scrolling(int cursor_offset)
     /* Copy the rows back one row */
     int i;
     for (i = 1; i < MAX_ROWS; ++i) {
-        mem_copy((char*)get_screen_offset(i, 0) + VIDEO_ADDRESS, 
+        k_memcpy((char*)get_screen_offset(i, 0) + VIDEO_ADDRESS, 
         (char*) get_screen_offset(i-1, 0) + VIDEO_ADDRESS, MAX_COLS *2);
     }
 

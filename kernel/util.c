@@ -3,7 +3,7 @@
 static void swap(char *c1, char *c2);
 static void reverse_str(char str[], int len);
 
-void mem_copy(char *src, char *dest, int num_bytes)
+void k_memcpy(char *src, char *dest, int num_bytes)
 {
     int i;
     for (i = 0; i < num_bytes; ++i) {
@@ -11,7 +11,7 @@ void mem_copy(char *src, char *dest, int num_bytes)
     }
 }
 
-void int_to_ascii(int n, char str[])
+void k_itoa(int n, char str[])
 {
     int is_negative = n < 0;
 

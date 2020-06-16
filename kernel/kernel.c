@@ -1,10 +1,11 @@
 #include "../drivers/screen.h"
 #include "util.h"
+#include "../cpu/isr.h"
 
 void kernel_main() 
 {
     clear_screen();
+    isr_install();
     
-    kprint("Hello World!\n", VGA_COLOR(BLUE, WHITE));
-    kprint("Nice to meet you", VGA_COLOR(BLUE, WHITE));
+    kprint("Hello World!\n", 0);
 }
