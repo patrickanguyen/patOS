@@ -13,6 +13,7 @@ LIGHT_BLUE, LIGHT_GREEN, LIGHT_CYAN, LIGHT_RED, LIGHT_MAGNETA, LIGHT_BROWN, WHIT
 
 void kprint_at(const char *message, int row, int col, unsigned char attribute_byte);
 void kprint(const char *message, unsigned char attribute_byte);
+void kprint_back(void);
 void clear_screen(void);
 
 #endif

@@ -59,7 +59,16 @@ void clear_screen(void)
     set_cursor_offset(get_screen_offset(0,0));
 }
 
-void print_char(char character, int row, int col, unsigned char attribute_byte)
+void kprint_back(void)
+{
+    int offset = get_cursor_offset() - 2;
+    int row = get_offset_row(offset);
+    int col = get_offset_col(offset);
+    print_char(' ', row, col, VGA_COLOR(BLACK, WHITE));
+    set_cursor_offset(offset);
+}
+
+static void print_char(char character, int row, int col, unsigned char attribute_byte)
 {
     unsigned char *video_mem = (unsigned char*) VIDEO_ADDRESS;
 
@@ -91,7 +100,7 @@ void print_char(char character, int row, int col, unsigned char attribute_byte)
     set_cursor_offset(offset);
 }
 
-int handle_scrolling(int cursor_offset)
+static int handle_scrolling(int cursor_offset)
 {
     if (cursor_offset < MAX_ROWS * MAX_COLS * 2) {
         return cursor_offset;
@@ -115,12 +124,12 @@ int handle_scrolling(int cursor_offset)
 
 }
 
-int get_screen_offset(int row,  int col)
+static int get_screen_offset(int row,  int col)
 {
     return 2 * (row * MAX_COLS + col);
 }
 
-int get_cursor_offset(void) 
+static int get_cursor_offset(void) 
 {
     /* Use VGA ports to get cursor pos */
     port_byte_out(REG_SCREEN_CTRL, 14);
@@ -131,7 +140,7 @@ int get_cursor_offset(void)
     return offset * 2;
 }
 
-void set_cursor_offset(int offset)
+static void set_cursor_offset(int offset)
 {
     offset /= 2;
     port_byte_out(REG_SCREEN_CTRL, 14);
@@ -140,12 +149,12 @@ void set_cursor_offset(int offset)
     port_byte_out(REG_SCREEN_DATA, (unsigned char)(offset & 0xff));
 }
 
-int get_offset_row(int offset)
+static int get_offset_row(int offset)
 {
     return offset / (2 * MAX_COLS);
 }
 
-int get_offset_col(int offset)
+static int get_offset_col(int offset)
 {
     return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2;
 }
