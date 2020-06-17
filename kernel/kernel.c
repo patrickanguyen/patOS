@@ -6,13 +6,15 @@
 #include "kernel.h"
 #include <stdbool.h>
 
+#define CONSOLE_HEADER() kprint("patOS> ", 0);
+
 void kernel_main() 
 {
     isr_install();
     irq_install();
     clear_screen();
 
-    kprint(">", 0);
+    CONSOLE_HEADER();
 }
 
 void handle_input(char *input)
@@ -20,10 +22,16 @@ void handle_input(char *input)
     if (strcmp(input, "clear") == 0) {
         clear_screen();
     }
+    else if (strcmp(input, "duck") == 0) {
+        kprint("     __\n", VGA_COLOR(BLACK, YELLOW));
+        kprint(" ___( o)>\n", VGA_COLOR(BLACK, YELLOW));
+        kprint(" \\ <_. )\n", VGA_COLOR(BLACK, YELLOW));
+        kprint("  `---'\n", VGA_COLOR(BLACK, YELLOW));
+    }
     else {
         kprint("You said: ", 0);
         kprint(input, 0);
         kprint("\n", 0);
     }
-    kprint(">", 0);
+    CONSOLE_HEADER();
 }
