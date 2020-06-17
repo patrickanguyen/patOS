@@ -2,7 +2,7 @@
 #include "../cpu/ports.h"
 #include "../cpu/isr.h"
 #include "screen.h"
-#include "../kernel/util.h"
+#include "../lib/string.h"
 #include <stdint.h>
 
 static void print_letter(uint8_t scancode);
@@ -11,7 +11,7 @@ static void keyboard_callback(__attribute__((unused))registers_t *r)
 {
     uint8_t scancode = port_byte_in(0x60);
     char sc_ascii[4];
-    k_itoa(scancode, sc_ascii);
+    itoa(scancode, sc_ascii);
     kprint(sc_ascii, VGA_COLOR(BLACK, WHITE));
     kprint(", ", VGA_COLOR(BLACK, WHITE));
     print_letter(scancode);

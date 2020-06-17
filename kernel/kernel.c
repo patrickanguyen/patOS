@@ -2,6 +2,8 @@
 #include "../cpu/isr.h"
 #include "../cpu/timer.h"
 #include "../drivers/keyboard.h"
+#include "../lib/string.h"
+#include <stdbool.h>
 
 void kernel_main() 
 {
@@ -9,9 +11,9 @@ void kernel_main()
     irq_install();
     clear_screen();
 
-    __asm__ __volatile__("int $2");
-    __asm__ __volatile__("int $3");
-    __asm__ __volatile__("int $16");
-
-    kprint("Hello World!\n", VGA_COLOR(BLACK, WHITE));
+    int x = 53;
+    char buffer[4];
+    itoa(x, buffer);
+    kprint(buffer, 0);
+    
 }

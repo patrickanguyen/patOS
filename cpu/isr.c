@@ -4,7 +4,7 @@
 #include "../drivers/screen.h"
 #include "timer.h"
 #include "../drivers/keyboard.h"
-#include "../kernel/util.h"
+#include "../lib/string.h"
 #include <stdint.h>
 
 isr_t interrupt_handlers[256];
@@ -118,7 +118,7 @@ void isr_handler(registers_t *r)
 
     kprint("Received interrupt: ", VGA_COLOR(BLACK, WHITE));
     char num[4];
-    k_itoa(r->int_no, num);
+    itoa(r->int_no, num);
     kprint(num, VGA_COLOR(BLACK, WHITE));
     kprint("\n", VGA_COLOR(BLACK, WHITE));
     kprint(exception_messages[r->int_no], VGA_COLOR(BLACK, WHITE));;

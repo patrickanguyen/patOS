@@ -1,6 +1,6 @@
 #include "screen.h"
 #include "../cpu/ports.h"
-#include "../kernel/util.h"
+#include "../lib/mem.h"
 
 static void print_char(char character, int col, int row, unsigned char attribute_byte);
 static int get_screen_offset(int row,  int col);
@@ -100,7 +100,7 @@ int handle_scrolling(int cursor_offset)
     /* Copy the rows back one row */
     int i;
     for (i = 1; i < MAX_ROWS; ++i) {
-        k_memcpy((char*)get_screen_offset(i, 0) + VIDEO_ADDRESS, 
+        memcpy((char*)get_screen_offset(i, 0) + VIDEO_ADDRESS, 
         (char*) get_screen_offset(i-1, 0) + VIDEO_ADDRESS, MAX_COLS *2);
     }
 
