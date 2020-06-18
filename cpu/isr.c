@@ -4,7 +4,7 @@
 #include "../drivers/screen.h"
 #include "timer.h"
 #include "../drivers/keyboard.h"
-#include "../lib/string.h"
+#include "../pat_libc/string.h"
 #include <stdint.h>
 
 isr_t interrupt_handlers[256];

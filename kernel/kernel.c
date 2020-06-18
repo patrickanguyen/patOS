@@ -2,7 +2,7 @@
 #include "../cpu/isr.h"
 #include "../cpu/timer.h"
 #include "../drivers/keyboard.h"
-#include "../lib/string.h"
+#include "../pat_libc/string.h"
 #include "kernel.h"
 #include <stdbool.h>
 
