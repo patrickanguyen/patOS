@@ -2,6 +2,8 @@
 
 <b>patOS</b> is a hobbyist, educational, 32-bit operating system, implemented in <b>C99</b> and <b>x86 Assembly</b>.
 
+![picture](/img/patOS_shell.gif)
+
 ## Building and Running from Source
 At the moment, <b>patOS</b> is built using a <b>GCC cross-complier</b> as described at [OSDev.org GCC Cross-Complier](https://wiki.osdev.org/GCC_Cross-Compiler) 
 page. After creating a <b>GCC cross-complier</b>, change the path for the complier and linker in the Makefile, then use `make` to build all the files.
