@@ -1,9 +1,9 @@
+#include "kernel.h"
 #include "../drivers/screen.h"
 #include "../cpu/isr.h"
 #include "../cpu/timer.h"
 #include "../drivers/keyboard.h"
-#include "../pat_libc/string.h"
-#include "kernel.h"
+#include <string.h>
 #include <stdbool.h>
 
 #define CONSOLE_HEADER() kprint("patOS> ", 0);

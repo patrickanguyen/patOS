@@ -13,7 +13,7 @@ ASM_OBJECTS = $(ASM_SOURCES:.asm=.o)
 
 BIN_NAME = patOS-image.bin
 
-CFLAGS = -Wall -Wextra -Werror -std=c99 -pedantic -ffreestanding
+CFLAGS = -Wall -Wextra -Werror -std=c99 -pedantic -ffreestanding -Ipat_libc
 
 .PHONY: all run clean
 

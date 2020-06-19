@@ -1,6 +1,6 @@
 #include "screen.h"
 #include "../cpu/ports.h"
-#include "../pat_libc/mem.h"
+#include <mem.h>
 
 static void print_char(char character, int col, int row, unsigned char attribute_byte);
 static int get_screen_offset(int row,  int col);

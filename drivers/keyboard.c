@@ -2,7 +2,7 @@
 #include "../cpu/ports.h"
 #include "../cpu/isr.h"
 #include "screen.h"
-#include "../pat_libc/string.h"
+#include <string.h>
 #include "../kernel/kernel.h"
 #include <stdint.h>
 #include <stdbool.h>
